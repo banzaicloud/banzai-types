@@ -1,5 +1,5 @@
 hash: 0a92051524d16f3801c37bfabee94d13cbfca66eab4468de94ebf808f559a885
-updated: 2017-12-19T15:13:18.293993+01:00
+updated: 2017-12-20T11:13:13.029548+01:00
 imports:
 - name: github.com/fsnotify/fsnotify
   version: 4da3e2cfbabc9f751898f250b49f2439785783a1
@@ -14,6 +14,10 @@ imports:
   - json/parser
   - json/scanner
   - json/token
+- name: github.com/jinzhu/gorm
+  version: 0a51f6cdc55d1650d9ed3b4c13026cfa9133b01e
+- name: github.com/jinzhu/inflection
+  version: 1c35d901db3da928c72a72d8458480cc9ade058f
 - name: github.com/magiconair/properties
   version: 49d762b9817ba1c2e9d0c69183c2b4a8b8f1d934
 - name: github.com/Masterminds/cookoo

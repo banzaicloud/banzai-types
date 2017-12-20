@@ -3,6 +3,7 @@ package azure
 import (
 	"github.com/banzaicloud/banzai-types/utils"
 	"github.com/banzaicloud/banzai-types/constants"
+	"github.com/banzaicloud/banzai-types/components/database"
 )
 
 type Values struct {
@@ -45,6 +46,14 @@ type CreateAzureNode struct {
 	AgentCount        int    `json:"agentCount"`
 	AgentName         string `json:"agentName"`
 	KubernetesVersion string `json:"kubernetesVersion"`
+}
+
+type UpdateClusterAzure struct {
+	*UpdateAzureNode `json:"node,omitempty"`
+}
+
+type UpdateAzureNode struct {
+	AgentCount int `json:"agentCount"`
 }
 
 // Validate validates azure cluster create request
@@ -92,6 +101,47 @@ func (azure *CreateClusterAzure) Validate() (bool, string) {
 	}
 
 	return true, ""
+}
+
+// ValidateAzureRequest validates the update request (only azure part). If any of the fields is missing, the method fills
+// with stored data.
+// func (r *UpdateClusterRequest) ValidateAzureRequest(defaultValue components.ClusterSimple) (bool, string) {
+func (a *UpdateClusterAzure) Validate(defaultValue database.ClusterSimple) (bool, string) {
+
+	utils.LogInfo(constants.TagValidateCreateCluster, "Start validate update request (azure)")
+
+	defAzureNode := &UpdateAzureNode{
+		AgentCount: defaultValue.Azure.AgentCount,
+	}
+
+	// ---- [ Azure field check ] ---- //
+	if a == nil {
+		utils.LogInfo(constants.TagValidateCreateCluster, "'azure' field is empty")
+		return false, "'azure' field is empty"
+	}
+
+	// ---- [ Node check ] ---- //
+	if a.UpdateAzureNode == nil {
+		utils.LogInfo(constants.TagValidateCreateCluster, "'node' field is empty. Load it from stored data.")
+		a.UpdateAzureNode = defAzureNode
+	}
+
+	// ---- [ Node - Agent count check] ---- //
+	if a.AgentCount == 0 {
+		def := defaultValue.Azure.AgentCount
+		utils.LogInfo(constants.TagValidateCreateCluster, "Node agentCount set to default value: ", def)
+		a.AgentCount = def
+	}
+
+	// create update request struct with the stored data to check equality
+	preCl := &UpdateClusterAzure{
+		UpdateAzureNode: defAzureNode,
+	}
+
+	utils.LogInfo(constants.TagValidateUpdateCluster, "Check stored & updated cluster equals")
+
+	// check equality
+	return utils.IsDifferent(a, preCl, constants.TagValidateUpdateCluster)
 }
 
 func (r *ResponseWithValue) String() string {

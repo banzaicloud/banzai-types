@@ -42,3 +42,16 @@ const (
 	AmazonDefaultNodeMaxCount       = 1
 	AmazonDefaultNodeSpotPrice      = "0.2"
 )
+
+// ### [ Constants to cloud types ] ### //
+const (
+	Amazon = "amazon"
+	Azure  = "azure"
+)
+
+// ### [ Constants to table names ] ### //
+const (
+	TableNameClusters         = "clusters"
+	TableNameAmazonProperties = "amazon_cluster_properties"
+	TableNameAzureProperties  = "azure_cluster_properties"
+)
