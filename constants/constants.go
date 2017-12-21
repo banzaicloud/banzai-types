@@ -65,4 +65,5 @@ const (
 	NoContent         = 204
 	InternalErrorCode = 500
 	BadRequest        = 400
+	NotFound          = 404
 )
