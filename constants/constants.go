@@ -56,3 +56,14 @@ const (
 	TableNameAmazonProperties = "amazon_cluster_properties"
 	TableNameAzureProperties  = "azure_cluster_properties"
 )
+
+// ### [ Constants to Response codes ] ### //
+const (
+	OK                = 200
+	Created           = 201
+	Accepted          = 202
+	NoContent         = 204
+	InternalErrorCode = 500
+	BadRequest        = 400
+	NotFound          = 404
+)
