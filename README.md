@@ -1,6 +1,6 @@
 ### Banzai API types
 
-Commom type and interface definitions with their helper functions used accross several Banzai Cloud projects. 
+Common type and interface definitions with their helper functions used accross several Banzai Cloud projects. 
 
 Used from:
 
