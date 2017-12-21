@@ -24,6 +24,7 @@ const (
 	TagAuth                  = "Auth"
 	TagDatabase              = "Database"
 	TagKubernetes            = "Kubernetes"
+	TagFormat                = "Format"
 )
 
 // ### [ Constants to Azure cluster default values ] ### //

@@ -5,6 +5,7 @@ import (
 	"github.com/banzaicloud/banzai-types/constants"
 	"bytes"
 	"fmt"
+	"github.com/banzaicloud/banzai-types/database"
 )
 
 type ClusterSimple struct {
@@ -76,10 +77,13 @@ func (AzureClusterSimple) TableName() string {
 	return constants.TableNameAzureProperties
 }
 
-func (cs *ClusterSimple) LoadClusterFromDatabase(db *gorm.DB, clusterId uint, cloud string) {
-	db.Where(ClusterSimple{
+func (cs *ClusterSimple) LoadClusterFromDatabase(clusterId uint, cloud string) {
+	database.SelectFirstWhere(&cs, ClusterSimple{
 		Model: gorm.Model{ID: clusterId},
-	}).Where(ClusterSimple{
 		Cloud: cloud,
-	}).First(&cs)
+	})
+}
+
+func GetSimpleClusterWithId(id uint) ClusterSimple {
+	return ClusterSimple{Model: gorm.Model{ID: id}}
 }
