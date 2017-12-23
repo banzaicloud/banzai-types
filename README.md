@@ -7,3 +7,5 @@ Used from:
 * Pipeline
 * Hollowtrees
 * Azure AKS client
+* Pipeline CI/CD plugin
+* Google GKE client
