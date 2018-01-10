@@ -5,6 +5,8 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/banzaicloud/banzai-types/configuration"
+	"runtime"
+	"strings"
 )
 
 var log *logrus.Logger
@@ -58,8 +60,23 @@ func SetLogLevel(level string) {
 	log.SetLevel(l)
 }
 
+func getFunctionName() string {
+	pc := make([]uintptr, 1)
+	n := runtime.Callers(4, pc)
+	frames := runtime.CallersFrames(pc[:n])
+	f, _ := frames.Next()
+	fullName := strings.Split(f.Function, "/")
+	var functionName string
+	if ln := len(fullName); ln >= 2 {
+		functionName = fullName[ln - 2] + "/" + fullName[ln - 1]
+	} else {
+		functionName = fullName[0]
+	}
+	return "(" + functionName + ")"
+}
+
 func getTag(tag string) string {
-	return " ### [" + tag + "] ### "
+	return getFunctionName() + " ### [" + tag + "] ### "
 }
 
 func prepareFormat(tag string, format string) string {
