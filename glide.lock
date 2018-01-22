@@ -1,5 +1,5 @@
-hash: b5be3c0fca2a5cf17f69393533a1f27afe6b9766f3a8f93cfe0567a7f5fb0213
-updated: 2018-01-20T14:52:38.508343+01:00
+hash: d359bacdc88211b48de992a0275871a4daf4175949877ef3731da3f6f5b9d08b
+updated: 2018-01-22T20:52:04.960878+01:00
 imports:
 - name: github.com/fsnotify/fsnotify
   version: f12c6236fe7b5cf6bcf30e5935d08cb079d78334
@@ -75,4 +75,8 @@ imports:
   - unicode/norm
 - name: gopkg.in/yaml.v2
   version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
+- name: k8s.io/helm
+  version: 8478fb4fc723885b155c924d1c8c410b7a9444e6
+  subpackages:
+  - pkg/helm/helmpath
 testImports: []
