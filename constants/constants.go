@@ -90,5 +90,9 @@ const (
 
 // ### [ Errors ] ### //
 var (
-	NotSupportedCloudType = errors.New("Not supported cloud type")
+	ErrorNotSupportedCloudType   = errors.New("Not supported cloud type")
+	ErrorAzureClusterNameRegexp  = errors.New("Only numbers, lowercase letters and underscores are allowed under name property. In addition, the value cannot end with an underscore, and must also be less than 32 characters long.")
+	ErrorAzureClusterNameEmpty   = errors.New("The name should not be empty.")
+	ErrorAzureClusterNameTooLong = errors.New("Cluster name is greater than or equal 32")
+	ErrorAzureCLusterStageFailed = errors.New("cluster stage is 'Failed'")
 )
