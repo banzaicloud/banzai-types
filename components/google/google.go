@@ -74,6 +74,17 @@ func (a *UpdateClusterGoogle) Validate() error {
 		return errors.New("'google' field is empty")
 	}
 
+	// check version prefix
+	if (a.GoogleMaster != nil && strings.HasPrefix(a.GoogleMaster.Version, versionPrefix)) ||
+		(a.GoogleNode != nil && strings.HasPrefix(a.GoogleNode.Version, versionPrefix)) {
+		return constants.ErrorWrongKubernetesVersion
+	}
+
+	// check version equality
+	if a.GoogleMaster != nil && a.GoogleNode != nil && a.GoogleMaster.Version != a.GoogleNode.Version {
+		return constants.ErrorDifferentKubernetesVersion
+	}
+
 	return nil
 }
 
