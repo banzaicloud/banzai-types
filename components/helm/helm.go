@@ -67,7 +67,7 @@ type CreateDeploymentResponse struct {
 	Notes       string `json:"notes"`
 }
 
-//DeploymentType definition to describe a Helm deployment
+// CreateDeploymentRequest describes a Helm deployment
 type CreateDeploymentRequest struct {
 	Name        string      `json:"name" binding:"required"`
 	ReleaseName string      `json:"release_name"`
