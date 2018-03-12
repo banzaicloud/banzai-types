@@ -70,7 +70,7 @@ type CreateDeploymentResponse struct {
 //DeploymentType definition to describe a Helm deployment
 type CreateDeploymentRequest struct {
 	Name        string      `json:"name" binding:"required"`
-	ReleaseName string      `json:"releasename"`
+	ReleaseName string      `json:"release_name"`
 	Version     string      `json:"version"`
 	Values      interface{} `json:"values"`
 }
