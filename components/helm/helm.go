@@ -34,10 +34,10 @@ type EndpointResponse struct {
 }
 
 type EndpointItem struct {
-	Name         string          `json:"name"`
-	Host         string          `json:"host"`
+	Name         string           `json:"name"`
+	Host         string           `json:"host"`
 	Ports        map[string]int32 `json:"ports"`
-	EndPointURLs []*EndPointURLs `json:"urls"`
+	EndPointURLs []*EndPointURLs  `json:"urls"`
 }
 
 type EndPointURLs struct {
@@ -46,25 +46,25 @@ type EndPointURLs struct {
 }
 
 type StatusResponse struct {
-	Status int `json:"status"`
+	Status  int    `json:"status"`
 	Message string `json:"message"`
-	Name string `json:"name"`
+	Name    string `json:"name"`
 }
 
 type DeleteResponse struct {
-	Status int `json:"status"`
+	Status  int    `json:"status"`
 	Message string `json:"message"`
-	Name string `json:"name"`
+	Name    string `json:"name"`
 }
 
 type InstallResponse struct {
-	Status int `json:"status"`
+	Status  int    `json:"status"`
 	Message string `json:"message"`
 }
 
 type CreateDeploymentResponse struct {
 	ReleaseName string `json:"release_name"`
-	Notes string `json:"notes"`
+	Notes       string `json:"notes"`
 }
 
 //DeploymentType definition to describe a Helm deployment
@@ -76,14 +76,14 @@ type CreateDeploymentRequest struct {
 }
 
 type ListDeploymentResponse struct {
-	Name string `json:"name"`
-	Chart string `json:"chart"`
-	Version int32 `json:"version"`
+	Name    string `json:"name"`
+	Chart   string `json:"chart"`
+	Version int32  `json:"version"`
 	Updated string `json:"updated"`
-	Status string `json:"status"`
+	Status  string `json:"status"`
 }
 
 type DeploymentStatusResponse struct {
-	Status int `json:"status"`
+	Status  int    `json:"status"`
 	Message string `json:"message"`
 }
