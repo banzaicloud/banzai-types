@@ -96,7 +96,7 @@ func (r *UpdateClusterRequest) String() string {
 				r.UpdateClusterGoogle.GoogleMaster.Version))
 		}
 
-		// Write GKE Master
+		// Write GKE Node
 		if r.UpdateClusterGoogle.GoogleNode != nil {
 			buffer.WriteString(fmt.Sprintf("Node version: %s, Service account: %s, Node count: %d",
 				r.UpdateClusterGoogle.GoogleNode.Version,
