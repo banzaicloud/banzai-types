@@ -132,6 +132,9 @@ func (r *CreateClusterRequest) Validate() error {
 	case constants.Google:
 		// google validate
 		return r.Properties.CreateClusterGoogle.Validate()
+	case constants.Dummy:
+		// dummy validate
+		return r.Properties.CreateClusterDummy.Validate()
 	case constants.BYOC:
 		// byoc validate
 		return r.Properties.CreateBYOC.Validate()
