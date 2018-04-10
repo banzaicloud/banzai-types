@@ -51,7 +51,7 @@ const (
 
 // ### [ Constants to Google cluster default values ] ### //
 const (
-	GoogleDefaultNodeCount 		= 1
+	GoogleDefaultNodeCount    = 1
 	GoogleDefaultNodePoolName = "default-pool"
 )
 
@@ -102,7 +102,7 @@ var (
 	ErrorRequiredZone               = errors.New("Zone is required")
 	ErrorRequiredSecretId           = errors.New("Secret id is required")
 	ErrorCloudInfoK8SNotSupported   = errors.New("Not supported key in case of amazon")
-	ErrorNodePoolNotProvided 		= errors.New("At least one 'nodepool' is required for creating or updating a cluster")
+	ErrorNodePoolNotProvided        = errors.New("At least one 'nodepool' is required for creating or updating a cluster")
 )
 
 // ### [ Keywords ] ###
