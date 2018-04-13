@@ -69,7 +69,7 @@ func (azure *CreateClusterAzure) Validate() error {
 		return errors.New(msg)
 	}
 
-	// ---- [ Node check ] ---- //
+	// ---- [ NodePool check ] ---- //
 	if azure.NodePools == nil {
 		msg := "Required field 'nodePools' is empty."
 		return errors.New(msg)
