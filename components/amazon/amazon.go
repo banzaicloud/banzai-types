@@ -28,7 +28,6 @@ type UpdateClusterAmazon struct {
 }
 
 type UpdateAmazonNodePool struct {
-	Name     string `json:"name"`
 	MinCount int    `json:"minCount"`
 	MaxCount int    `json:"maxCount"`
 }
