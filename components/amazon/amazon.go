@@ -17,33 +17,32 @@ type CreateAmazonMaster struct {
 
 type AmazonNodePool struct {
 	InstanceType string `json:"instanceType"`
-	SpotPrice string 		`json:"spotPrice"`
-	MinCount  int  		  `json:"minCount"`
-	MaxCount  int 	    `json:"maxCount"`
-	Image     string 		`json:"image"`
+	SpotPrice    string `json:"spotPrice"`
+	MinCount     int    `json:"minCount"`
+	MaxCount     int    `json:"maxCount"`
+	Image        string `json:"image"`
 }
 
 type UpdateClusterAmazon struct {
-	NodePools []*UpdateAmazonNodePool `json:"nodePools,omitempty"`
+	NodePools map[string]*UpdateAmazonNodePool `json:"nodePools,omitempty"`
 }
 
 type UpdateAmazonNodePool struct {
-	Name string		`json:"name"`
-	MinCount int 	`json:"minCount"`
-	MaxCount int 	`json:"maxCount"`
+	Name     string `json:"name"`
+	MinCount int    `json:"minCount"`
+	MaxCount int    `json:"maxCount"`
 }
 
 // Validate validates amazon cluster create request
 func (amazon *CreateClusterAmazon) Validate() error {
 	if amazon == nil {
-		return errors.New("Required field 'amazon' is empty.")
+		return constants.ErrorAmazonFieldIsEmpty
 	}
 	if amazon.Master == nil {
-		msg := "Required field 'master' is empty."
-		return errors.New(msg)
+		return constants.ErrorAmazonMasterFieldIsEmpty
 	}
 	if amazon.Master.Image == "" {
-		return errors.New("Required field 'image' is empty ")
+		return constants.ErrorAmazonImageFieldIsEmpty
 	}
 
 	if amazon.Master.InstanceType == "" {
@@ -51,20 +50,19 @@ func (amazon *CreateClusterAmazon) Validate() error {
 	}
 
 	if len(amazon.NodePools) == 0 {
-		msg := "At least one 'nodePool' is required."
-		return errors.New(msg)
+		return constants.ErrorAmazonNodePoolFieldIsEmpty
 	}
 
 	for _, amazonNode := range amazon.NodePools {
 
 		// ---- [ Node image check ] ---- //
 		if len(amazonNode.InstanceType) == 0 {
-			return errors.New("Required field 'instanceType' is empty ")
+			return constants.ErrorAmazonInstancetypeFieldIsEmpty
 		}
 
 		// ---- [ Node image check ] ---- //
 		if len(amazonNode.Image) == 0 {
-			return errors.New("Required field 'image' is empty ")
+			return constants.ErrorAmazonImageFieldIsEmpty
 		}
 
 		// ---- [ Node min count check ] ---- //
@@ -79,7 +77,7 @@ func (amazon *CreateClusterAmazon) Validate() error {
 
 		// ---- [ Node min count <= max count check ] ---- //
 		if amazonNode.MaxCount < amazonNode.MinCount {
-			return errors.New("maxCount must be greater than mintCount")
+			return constants.ErrorAmazonMinMaxFieldError
 		}
 
 		// ---- [ Node spot price ] ---- //
