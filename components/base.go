@@ -85,10 +85,11 @@ func (r *UpdateClusterRequest) String() string {
 			&r.Azure.NodePools))
 	} else if r.Cloud == constants.Amazon && r.Amazon != nil {
 		// Write AWS Node
-		if r.Amazon.UpdateAmazonNode != nil {
-			buffer.WriteString(fmt.Sprintf("Min count: %d, Max count: %d",
-				r.Amazon.MinCount,
-				r.Amazon.MaxCount))
+		for name, nodePool := range r.UpdateProperties.Amazon.NodePools {
+			buffer.WriteString(fmt.Sprintf("NodePool %s Min count: %d, Max count: %d",
+				name,
+				nodePool.MinCount,
+				nodePool.MaxCount))
 		}
 	} else if r.Cloud == constants.Google && r.Google != nil {
 		// Write GKE Master
@@ -204,7 +205,7 @@ type ClusterProfileResponse struct {
 	Name             string `json:"name" binding:"required"`
 	Location         string `json:"location" binding:"required"`
 	Cloud            string `json:"cloud" binding:"required"`
-	NodeInstanceType string `json:"nodeInstanceType" binding:"required"`
+	NodeInstanceType string `json:"nodeInstanceType,omitempty"`
 	Properties       struct {
 		Amazon *amazon.ClusterProfileAmazon `json:"amazon,omitempty"`
 		Azure  *azure.ClusterProfileAzure   `json:"azure,omitempty"`
@@ -216,7 +217,7 @@ type ClusterProfileRequest struct {
 	Name             string `json:"name" binding:"required"`
 	Location         string `json:"location" binding:"required"`
 	Cloud            string `json:"cloud" binding:"required"`
-	NodeInstanceType string `json:"nodeInstanceType" binding:"required"`
+	NodeInstanceType string `json:"nodeInstanceType"`
 	Properties       struct {
 		Amazon *amazon.ClusterProfileAmazon `json:"amazon,omitempty"`
 		Azure  *azure.ClusterProfileAzure   `json:"azure,omitempty"`
@@ -231,15 +232,10 @@ type CloudInfoRequest struct {
 		Fields           []string          `json:"fields,omitempty"`
 		InstanceType     *InstanceFilter   `json:"instanceType,omitempty"`
 		KubernetesFilter *KubernetesFilter `json:"k8sVersion,omitempty"`
-		ImageFilter      *ImageFilter      `json:"image,omitempty"`
 	} `json:"filter,omitempty"`
 }
 
 type InstanceFilter struct {
-	Zone string `json:"zone,omitempty"`
-}
-
-type ImageFilter struct {
 	Zone string    `json:"zone,omitempty"`
 	Tags []*string `json:"tags,omitempty"`
 }
@@ -254,7 +250,6 @@ type GetCloudInfoResponse struct {
 	Locations          []string               `json:"locations,omitempty"`
 	NodeInstanceType   map[string]MachineType `json:"nodeInstanceType,omitempty"`
 	KubernetesVersions interface{}            `json:"kubernetes_versions,omitempty"`
-	Image              map[string][]string    `json:"image,omitempty"`
 }
 
 type MachineType []string
