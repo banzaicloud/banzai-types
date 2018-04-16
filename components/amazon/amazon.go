@@ -104,11 +104,6 @@ func (a *UpdateClusterAmazon) Validate() error {
 	}
 
 	for _, amazonNode := range a.NodePools {
-		// ---- [ Node image check ] ---- //
-		if len(amazonNode.Name) == 0 {
-			return errors.New("Required field 'name' is empty ")
-		}
-
 		// ---- [ Node max count > min count check ] ---- //
 		if amazonNode.MaxCount < amazonNode.MinCount {
 			return errors.New("maxCount must be greater than mintCount")
