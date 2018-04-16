@@ -232,10 +232,15 @@ type CloudInfoRequest struct {
 		Fields           []string          `json:"fields,omitempty"`
 		InstanceType     *InstanceFilter   `json:"instanceType,omitempty"`
 		KubernetesFilter *KubernetesFilter `json:"k8sVersion,omitempty"`
+		ImageFilter      *ImageFilter      `json:"image,omitempty"`
 	} `json:"filter,omitempty"`
 }
 
 type InstanceFilter struct {
+	Zone string `json:"zone,omitempty"`
+}
+
+type ImageFilter struct {
 	Zone string    `json:"zone,omitempty"`
 	Tags []*string `json:"tags,omitempty"`
 }
@@ -250,6 +255,7 @@ type GetCloudInfoResponse struct {
 	Locations          []string               `json:"locations,omitempty"`
 	NodeInstanceType   map[string]MachineType `json:"nodeInstanceType,omitempty"`
 	KubernetesVersions interface{}            `json:"kubernetes_versions,omitempty"`
+	Image              map[string][]string    `json:"image,omitempty"`
 }
 
 type MachineType []string
