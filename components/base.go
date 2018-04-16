@@ -237,16 +237,16 @@ type CloudInfoRequest struct {
 }
 
 type InstanceFilter struct {
-	Zone string `json:"zone,omitempty"`
+	Location string `json:"location,omitempty"`
 }
 
 type ImageFilter struct {
-	Zone string    `json:"zone,omitempty"`
-	Tags []*string `json:"tags,omitempty"`
+	Location string    `json:"location,omitempty"`
+	Tags     []*string `json:"tags,omitempty"`
 }
 
 type KubernetesFilter struct {
-	Zone string `json:"zone,omitempty"`
+	Location string `json:"location,omitempty"`
 }
 
 type GetCloudInfoResponse struct {
