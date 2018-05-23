@@ -122,6 +122,7 @@ var (
 	ErrorResourceGroupRequired          = errors.New("resource group is required")
 	ErrorProjectRequired                = errors.New("project is required")
 	ErrorNodePoolNotFoundByName         = errors.New("nodepool not found by name")
+	ErrorNoInfrastructureRG             = errors.New("no infrastructure resource group found")
 )
 
 // ### [ Keywords ] ###
