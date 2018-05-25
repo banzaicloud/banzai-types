@@ -34,6 +34,7 @@ type CreateClusterRequest struct {
 	} `json:"properties" binding:"required"`
 }
 
+// InstallSecretsToClusterRequest describes an InstallSecretToCluster request
 type InstallSecretsToClusterRequest struct {
 	Namespace string `json:"namespace" binding:"required"`
 	Repo      string `json:"repo" binding:"required"`
