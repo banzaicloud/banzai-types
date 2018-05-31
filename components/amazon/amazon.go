@@ -44,19 +44,26 @@ func (a *NodePool) Validate() error {
 		return constants.ErrorAmazonImageFieldIsEmpty
 	}
 
-	// ---- [ Node min count check ] ---- //
-	if a.MinCount == 0 {
-		a.MinCount = constants.DefaultNodeMinCount
-	}
+	// ---- [ Min & Max count fields are required in case of autoscaling ] ---- //
+	if a.Autoscaling {
 
-	// ---- [ Node max count check ] ---- //
-	if a.MaxCount == 0 {
-		if a.Autoscaling {
-			a.MaxCount = constants.DefaultNodeMinCount * constants.DefaultNodeMaxCountFactor
-		} else {
-			a.MaxCount = a.MinCount
+		if a.MinCount == 0 {
+			return constants.ErrorMinFieldRequiredError
+		}
+		if a.MaxCount == 0 {
+			return constants.ErrorMaxFieldRequiredError
 		}
 
+	} else {
+		// ---- [ Node min count check ] ---- //
+		if a.MinCount == 0 {
+			a.MinCount = constants.DefaultNodeMinCount
+		}
+
+		// ---- [ Node max count check ] ---- //
+		if a.MaxCount == 0 {
+			a.MaxCount = constants.DefaultNodeMaxCount
+		}
 	}
 
 	// ---- [ Node min count <= max count check ] ---- //

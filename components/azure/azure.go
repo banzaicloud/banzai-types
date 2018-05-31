@@ -101,27 +101,21 @@ func (azure *CreateClusterAzure) Validate() error {
 
 	for _, np := range azure.NodePools {
 
-		if np.MinCount == 0 {
-			np.MinCount = constants.DefaultNodeMinCount
-		}
-
-		// ---- [ Node max count check ] ---- //
-		if np.MaxCount == 0 {
-			if np.Autoscaling {
-				np.MaxCount = int(constants.DefaultNodeMinCount + constants.DefaultNodeMinCount*
-					constants.DefaultNodeMaxCountFactor)
-			} else {
-				np.MaxCount = np.MinCount
+		// ---- [ Min & Max count fields are required in case of autoscaling ] ---- //
+		if np.Autoscaling {
+			if np.MinCount == 0 {
+				return constants.ErrorMinFieldRequiredError
 			}
-
-		}
-
-		if np.MaxCount < np.MinCount {
-			return constants.ErrorNodePoolMinMaxFieldError
+			if np.MaxCount == 0 {
+				return constants.ErrorMaxFieldRequiredError
+			}
+			if np.MaxCount < np.MinCount {
+				return constants.ErrorNodePoolMinMaxFieldError
+			}
 		}
 
 		if np.Count == 0 {
-			np.Count = np.MinCount
+			np.Count = constants.DefaultNodeMinCount
 		}
 
 		if len(np.NodeInstanceType) == 0 {

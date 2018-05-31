@@ -64,27 +64,21 @@ func (g *CreateClusterGoogle) Validate() error {
 
 	for _, nodePool := range g.NodePools {
 
-		if nodePool.MinCount == 0 {
-			nodePool.MinCount = constants.DefaultNodeMinCount
-		}
-
-		// ---- [ Node max count check ] ---- //
-		if nodePool.MaxCount == 0 {
-			if nodePool.Autoscaling {
-				nodePool.MaxCount = int(constants.DefaultNodeMinCount + constants.DefaultNodeMinCount*
-					constants.DefaultNodeMaxCountFactor)
-			} else {
-				nodePool.MaxCount = nodePool.MinCount
+		// ---- [ Min & Max count fields are required in case of autoscaling ] ---- //
+		if nodePool.Autoscaling {
+			if nodePool.MinCount == 0 {
+				return constants.ErrorMinFieldRequiredError
 			}
-
-		}
-
-		if nodePool.MaxCount < nodePool.MinCount {
-			return constants.ErrorNodePoolMinMaxFieldError
+			if nodePool.MaxCount == 0 {
+				return constants.ErrorMaxFieldRequiredError
+			}
+			if nodePool.MaxCount < nodePool.MinCount {
+				return constants.ErrorNodePoolMinMaxFieldError
+			}
 		}
 
 		if nodePool.Count == 0 {
-			nodePool.Count = nodePool.MinCount
+			nodePool.Count = constants.DefaultNodeMinCount
 		}
 
 	}
