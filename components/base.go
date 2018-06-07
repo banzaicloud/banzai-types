@@ -47,7 +47,6 @@ type CreateClusterRequest struct {
 	Location    string `json:"location"`
 	Cloud       string `json:"cloud" binding:"required"`
 	SecretId    string `json:"secret_id" binding:"required"`
-	SshSecretId string `json:"ssh_secret_id,omitempty"`
 	ProfileName string `json:"profile_name"`
 	Properties  struct {
 		CreateClusterAmazon *amazon.CreateClusterAmazon  `json:"amazon,omitempty"`
@@ -352,7 +351,6 @@ func (p *ClusterProfileResponse) CreateClusterRequest(createRequest *CreateClust
 		Location:    p.Location,
 		Cloud:       p.Cloud,
 		SecretId:    createRequest.SecretId,
-		SshSecretId: createRequest.SshSecretId,
 		ProfileName: p.Name,
 		Properties: struct {
 			CreateClusterAmazon *amazon.CreateClusterAmazon  `json:"amazon,omitempty"`
