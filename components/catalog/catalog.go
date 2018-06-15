@@ -23,6 +23,7 @@ type ApplicationOptions struct {
 // ApplicationDependency for spotguide.yaml
 type ApplicationDependency struct {
 	Info      string           `json:"info"`
+	Name      string           `json:"name"`
 	Type      string           `json:"type"`
 	Values    []string         `json:"values"`
 	Namespace string           `json:"namespace"`
