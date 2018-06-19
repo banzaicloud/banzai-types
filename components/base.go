@@ -43,12 +43,13 @@ type BucketInfo struct {
 
 // CreateClusterRequest describes a create cluster request
 type CreateClusterRequest struct {
-	Name        string `json:"name" binding:"required"`
-	Location    string `json:"location"`
-	Cloud       string `json:"cloud" binding:"required"`
-	SecretId    string `json:"secret_id" binding:"required"`
-	ProfileName string `json:"profile_name"`
-	Properties  struct {
+	Name              string   `json:"name" binding:"required"`
+	Location          string   `json:"location"`
+	Cloud             string   `json:"cloud" binding:"required"`
+	SecretId          string   `json:"secret_id" binding:"required"`
+	ProfileName       string   `json:"profile_name"`
+	PostHookFunctions []string `json:"postHooks"`
+	Properties        struct {
 		CreateClusterAmazon *amazon.CreateClusterAmazon  `json:"amazon,omitempty"`
 		CreateClusterAzure  *azure.CreateClusterAzure    `json:"azure,omitempty"`
 		CreateClusterGoogle *google.CreateClusterGoogle  `json:"google,omitempty"`
