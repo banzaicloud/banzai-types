@@ -10,10 +10,10 @@ type SpotguideFile struct {
 
 // ApplicationSecret for API response
 type ApplicationSecret struct {
-	Name     string                     `json:"name" yaml:"name"`
-	Htaccess *ApplicationSecretHtaccess `json:"htaccess" yaml:"htaccess"`
-	Password *ApplicationSecretPassword `json:"password" yaml:"password"`
-	TLS      *ApplicationSecretTLS      `json:"tls" yaml:"tls"`
+	Name     string                     `json:"name" yaml:"name" binding:"required"`
+	Htaccess *ApplicationSecretHtaccess `json:"htaccess,omitempty" yaml:"htaccess,omitempty"`
+	Password *ApplicationSecretPassword `json:"password,omitempty" yaml:"password,omitempty"`
+	TLS      *ApplicationSecretTLS      `json:"tls,omitempty" yaml:"tls,omitempty"`
 }
 
 // ApplicationSecretHtaccess to parse spotguide.yaml
@@ -30,8 +30,8 @@ type ApplicationSecretPassword struct {
 
 // ApplicationSecretTLS to parse spotguide.yaml
 type ApplicationSecretTLS struct {
-	Hosts      string `json:"hosts" yaml:"hosts"`
-	Expiration string `json:"expiration" yaml:"expiration"`
+	Hosts      string `json:"hosts" yaml:"hosts" binding:"required"`
+	Expiration string `json:"expiration,omitempty" yaml:"expiration,omitempty"`
 }
 
 // ApplicationOptions for API response
